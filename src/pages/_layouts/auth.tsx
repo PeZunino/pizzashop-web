@@ -1,5 +1,5 @@
 import { Pizza } from "lucide-react";
-import { Outlet } from "react-router";
+import { Outlet } from "react-router-dom";
 
 export function AuthLayout() {
   return (
@@ -14,7 +14,7 @@ export function AuthLayout() {
         </footer>
       </div>
 
-      <div className="flex flex-col items-center justify-center">
+      <div className="relative flex flex-col items-center justify-center">
         <Outlet />
       </div>
     </div>
