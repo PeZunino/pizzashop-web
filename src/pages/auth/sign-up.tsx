@@ -1,7 +1,7 @@
 import { registerRestaurant } from "@/api/register-restaurant";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@radix-ui/react-label";
+import { Label } from "@/components/ui/label";
 import { useMutation } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
