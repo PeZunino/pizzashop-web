@@ -8,8 +8,21 @@ import {
   DropdownMenuContent,
   DropdownMenuSeparator,
 } from "./ui/dropdown-menu";
+import { getProfile } from "@/api/get-profile";
+import { useQuery } from "@tanstack/react-query";
+import { getManagedRestaurant } from "@/api/get-managed-restaurant";
+import { Skeleton } from "./ui/skeleton";
 
 export function AccountMenu() {
+  const { data: profile, isLoading: isLoadingProfile } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  });
+  const { data: managedRestaurant, isLoading: isLoadingManagedRestaurant } =
+    useQuery({
+      queryKey: ["managed-restaurant"],
+      queryFn: getManagedRestaurant,
+    });
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -17,17 +30,30 @@ export function AccountMenu() {
           variant="outline"
           className="flex select-none items-center gap-2"
         >
-          Pizza Shop
+          {isLoadingManagedRestaurant ? (
+            <Skeleton className="h-4 w-40" />
+          ) : (
+            managedRestaurant?.name
+          )}
           <ChevronDown />
         </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="flex flex-col">
-          <span>Diego Fernandes</span>
-          <span className="text-xs font-normal text-muted-foreground">
-            diego@rocketseat.com.br
-          </span>
+          {isLoadingProfile ? (
+            <div className="space-y-1.5">
+              <Skeleton className="h-4 w-32" />
+              <Skeleton className="h-3 w-24" />
+            </div>
+          ) : (
+            <>
+              <span>Diego Fernandes</span>
+              <span className="text-xs font-normal text-muted-foreground">
+                diego@rocketseat.com.br
+              </span>
+            </>
+          )}
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
